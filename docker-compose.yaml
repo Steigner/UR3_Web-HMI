@@ -1,0 +1,48 @@
+version: '3'
+services:
+  server:
+    build: ./server
+    ports:
+      - 3000:3000
+    volumes:
+      - ./server:/app
+    command: npm run dev
+    networks:
+      - robot_network
+    depends_on:
+      - flask-server
+
+  flask-server:
+    build: ./flask-server
+    container_name: flask_app
+    volumes:
+      - ./flask-server:/app
+    restart: always
+    command: python3 app.py
+    ports:
+      - 5000:5000
+    networks:
+      - robot_network
+    depends_on:
+      - ur-rtde-read
+
+  ur-rtde-read:
+    build: ./ur-rtde
+    restart: always
+    command: python3 read.py
+    volumes:
+      - ./ur-rtde:/app
+    networks:
+      - robot_network
+
+  ur-rtde-control:
+    build: ./ur-rtde
+    restart: always
+    command: python3 control.py
+    volumes:
+      - ./ur-rtde:/app
+    networks:
+      - robot_network
+
+networks:
+  robot_network:

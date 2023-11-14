@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="manifest" href="/manifest.json">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <title>Project UR3</title>
+</head>
+<body>
+    <!-- Button trigger modal -->
+    <button type="button" class="btn btn-primary btn-lg m-2" data-bs-toggle="modal" data-bs-target="#controlpanel">
+        Control Panel
+    </button>
+    
+    <!-- Modal -->
+    <div class="modal fade" id="controlpanel" data-bs-backdrop="false" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog" style="position: absolute; bottom: 0; left: 0; margin: 0;">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="staticBackdropLabel">Control Panel</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-footer d-flex align-items-center">
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-4 text-center">
+                                <div class="d-grid">
+                                    <button id="x+" class="btn btn-outline-primary btn-lg m-2">X+</button>
+                                    <button id="x-" class="btn btn-outline-primary btn-lg m-2">X-</button>
+                                    <button id="y+" class="btn btn-outline-primary btn-lg m-2">Y+</button>
+                                    <button id="y-" class="btn btn-outline-primary btn-lg m-2">Y-</button>
+                                    <button id="z+" class="btn btn-outline-primary btn-lg m-2">Z+</button>
+                                    <button id="z-" class="btn btn-outline-primary btn-lg m-2">Z-</button>
+                                </div>
+                            </div>
+                            <div class="col-4 text-center">
+                                <div class="d-grid">
+                                    <button id="rx+" class="btn btn-outline-primary btn-lg m-2">RX+</button>
+                                    <button id="rx-" class="btn btn-outline-primary btn-lg m-2">RX-</button>
+                                    <button id="ry+" class="btn btn-outline-primary btn-lg m-2">RY+</button>
+                                    <button id="ry-" class="btn btn-outline-primary btn-lg m-2">RY-</button>
+                                    <button id="rz+" class="btn btn-outline-primary btn-lg m-2">RZ+</button>
+                                    <button id="rz-" class="btn btn-outline-primary btn-lg m-2">RZ-</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script type="module" src="script.js"></script>
+    <script type="module" src="control.js"></script>
+</body>
+</html>
