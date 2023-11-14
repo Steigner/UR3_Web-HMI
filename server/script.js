@@ -16,7 +16,7 @@ controls.enableDamping = true;
 controls.target.set(0, 1, 0);
 
 const loader = new THREE.ObjectLoader();
-loader.load('scene_2.json', (object) => {
+loader.load('/scenes/scene_2.json', (object) => {
     // Add the loaded object to the scene
     scene.add(object);
     

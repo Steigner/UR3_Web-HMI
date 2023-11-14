@@ -6,6 +6,7 @@ services:
       - 3000:3000
     volumes:
       - ./server:/app
+      - ./scenes:/app/scenes
     command: npm run dev
     # command: tail -F anything.js
     networks:
@@ -45,6 +46,11 @@ services:
       - ./ur-rtde:/app
     networks:
       - robot_network
+
+  unpack:
+    build: ./scenes
+    volumes:
+      - ./scenes:/app
 
 networks:
   robot_network:
