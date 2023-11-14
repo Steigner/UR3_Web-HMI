@@ -15,13 +15,6 @@ const controls = new OrbitControls(camera, renderer.domElement);
 controls.enableDamping = true;
 controls.target.set(0, 1, 0);
 
-// let clicked = false;
-// function handleClick() {
-//     console.log("Button clicked!");
-//     clicked = true;
-// }
-// document.getElementById("button").addEventListener("click", handleClick);
-
 const loader = new THREE.ObjectLoader();
 loader.load('scene_2.json', (object) => {
     // Add the loaded object to the scene
@@ -37,11 +30,8 @@ loader.load('scene_2.json', (object) => {
     var joint6 = UR3.getObjectByName("Joint_6");
     
     var links = [joint1, joint2, joint3, joint4, joint5, joint6];
+    var get_data = new EventSource("http://localhost:5000/digital");
 
-    // let c = false;
-    var get_data;
-    get_data = new EventSource("http://localhost:5000/digital");
-    
     function animate() {
         requestAnimationFrame(animate);
         controls.update();
@@ -52,23 +42,11 @@ loader.load('scene_2.json', (object) => {
             // console.log(jointPositions);
             for (var i = 0; i < links.length; i++) {
                 links[i].rotation.y = jointPositions[i];
+
+                // print to modal
+                document.getElementById("j" + String(i)).innerHTML = String(Math.floor(jointPositions[i] * (180 / Math.PI))) + "°";
             }
         };
-
-    //     if(clicked == true && c == false){
-    //         get_data = new EventSource("http://localhost:5000/digital");
-    //         c = true;
-    //     }
-
-    //     if(clicked == true && c == true && get_data !== undefined){
-    //         get_data.onmessage = function(event) {
-    //             var jointPositions = JSON.parse(event.data);
-    //             // console.log(jointPositions);
-    //             for (var i = 0; i < links.length; i++) {
-    //                 links[i].rotation.y = jointPositions[i];
-    //             }
-    //         };
-    //     }
     }
 
     animate();

@@ -51,6 +51,47 @@
         </div>
     </div>
 
+    <!-- Button trigger modal -->
+    <button type="button" class="btn btn-primary btn-lg m-2" data-bs-toggle="modal" data-bs-target="#exampleModal">
+        Robot info
+    </button>
+    
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">Joint Position</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-6 text-center">
+                            <div class="d-grid">
+                                <div class="badge bg-primary text-wrap m-2" style="width: 6rem; opacity: 0.5;" id="j">J0</div>
+                                <div class="badge bg-primary text-wrap m-2" style="width: 6rem; opacity: 0.5;" id="j">J1</div>
+                                <div class="badge bg-primary text-wrap m-2" style="width: 6rem; opacity: 0.5;" id="j">J2</div>
+                                <div class="badge bg-primary text-wrap m-2" style="width: 6rem; opacity: 0.5;" id="j">J3</div>
+                                <div class="badge bg-primary text-wrap m-2" style="width: 6rem; opacity: 0.5;" id="j">J4</div>
+                                <div class="badge bg-primary text-wrap m-2" style="width: 6rem; opacity: 0.5;" id="j">J5</div>
+                            </div>
+                        </div>
+                        <div class="col-6 text-center">
+                            <div class="d-grid">
+                                <div class="badge bg-primary text-wrap m-2" id="j0"></div>
+                                <div class="badge bg-primary text-wrap m-2" id="j1"></div>
+                                <div class="badge bg-primary text-wrap m-2" id="j2"></div>
+                                <div class="badge bg-primary text-wrap m-2" id="j3"></div>
+                                <div class="badge bg-primary text-wrap m-2" id="j4"></div>
+                                <div class="badge bg-primary text-wrap m-2" id="j5"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <script type="module" src="script.js"></script>
     <script type="module" src="control.js"></script>
 </body>

@@ -21,6 +21,12 @@ class Robot_Control(object):
         const_rot = self.const_rot
         
         while True:
+            if not self.__rtde_c.isProgramRunning():
+                print("Control Panel was interrupted on UR Polyscope side.", flush=True)
+                self.__rtde_c.disconnect()
+                self.__rtde_c.reconnect()
+                continue
+
             data = socket_sub.recv_pyobj()
             print(data)
 
@@ -74,5 +80,5 @@ class Robot_Control(object):
 
 if __name__ == "__main__":
     robot = Robot_Control()
-    print("Robot connected", flush=True)
-    robot.sub_data()
+    print("Robot connected - Controler", flush=True)
+    p = robot.sub_data()

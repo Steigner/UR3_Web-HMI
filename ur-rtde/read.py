@@ -30,5 +30,5 @@ class Robot_Read(object):
 
 if __name__ == "__main__":
     robot = Robot_Read()
-    print("Robot connected", flush=True)
+    print("Robot connected - Reader", flush=True)
     robot.read_robot_pos()

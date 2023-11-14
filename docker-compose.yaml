@@ -7,6 +7,7 @@ services:
     volumes:
       - ./server:/app
     command: npm run dev
+    # command: tail -F anything.js
     networks:
       - robot_network
     depends_on:
@@ -39,6 +40,7 @@ services:
     build: ./ur-rtde
     restart: always
     command: python3 control.py
+    # command: tail -F anything.js
     volumes:
       - ./ur-rtde:/app
     networks:
