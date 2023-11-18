@@ -1,8 +1,8 @@
 # UR3 Web - HMI
 
-In this project, the digital twin solution was based on technology accessible through a web browser. The technology consists of several containers for easy access.
+In this project, the digital twin solution was based on technology accessible through a web browser. The technology consists of several containers for easy access. It is a simple application, with only Bootstrap v5 for nicers visualization.
 
-**KeyWords:** Universal Robots, UR3, RTDE, Three.js, Web Visualisation, Docker Compose, Docker Containers
+**KeyWords:** Universal Robots, UR3, RTDE, Three.js, Web Visualisation, Web Components, Vite, Docker Compose, Docker Containers
 
 ```bash
 Software
@@ -16,6 +16,7 @@ Software
 |   -   based on Node(latest)
 |   --   vite
 |   --   three
+|   ---   Bootstrap v5(cdnjs import)
 ```
 
 ```bash
