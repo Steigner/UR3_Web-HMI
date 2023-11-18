@@ -41,7 +41,7 @@ Software
                                     +--------------+
 ```
 
-Data from the client side is sent via **SSE (Server Sent Events)** to the Flask server side, where there is a simple API that can communicate with the real UR3 robot or with UR3 in the UR Polyscope simulation using **RTDE (Real-Time Data Exchange)** communication.
+From client via **SSE (Server Sent Events) | HTTP** to the Flask server side and back. In Flask is there a simple API that can communicate with the real UR3 robot or with UR3 in the UR Polyscope simulation using **RTDE (Real-Time Data Exchange)** communication.
 
 
 ## How to run
