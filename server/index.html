@@ -1,54 +1,158 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <link rel="manifest" href="/manifest.json">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
-    <title>Project UR3</title>
-</head>
-<body>
-    
-    <button id="connect" type="button" class="btn btn-primary btn-lg m-2" data-bs-toggle="modal" data-bs-target="#exampleModal2">Connect</button>
+    <head>
+        <meta charset="UTF-8">
+        <title>Project UR3</title>
 
-    <button id="disconnect" type="button" class="btn btn-primary btn-lg m-2">
-        Disconnect
-    </button>
+        <!-- Import Bootstrap v5 -->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+            crossorigin="anonymous"></script>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+            integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
+            crossorigin="anonymous">
 
-    <!-- Button trigger modal -->
-    <button type="button" class="btn btn-primary btn-lg m-2" data-bs-toggle="modal" data-bs-target="#controlpanel">
-        Control Panel
-    </button>
+        <style>
+            body {
+                margin: 0;
+                padding: 0;
+                height: 100vh;
+                width: 100vw;
+                display: flex;
+                flex-direction: column;
+            }
 
-    <!-- Modal -->
-    <div class="modal fade" id="controlpanel" data-bs-backdrop="false" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-        <div class="modal-dialog" style="position: absolute; bottom: 0; left: 0; margin: 0;">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="staticBackdropLabel">Control Panel</h1>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            /* Container for buttons with a grid layout */
+            .buttons-container {
+                flex: 5%;
+                display: grid;
+                grid-template-columns: 20% 20% 20% 20% 20%; /* Grid with 5 columns each taking 20% */
+                align-items: center;
+            }
+
+            /* Container for Three.js content */
+            .threejs-container {
+                flex: 85%;
+                width: 100vw;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+            }
+        </style>
+
+    </head>
+
+    <body>
+        <!-- Buttons Container -->
+        <div class="buttons-container">
+            <!-- Button to open Connect modal -->
+            <button id="connect" type="button" class="btn btn-primary btn-lg m-2" data-bs-toggle="modal"
+                data-bs-target="#exampleModal2">Connect</button>
+
+            <!-- Button for Disconnect -->
+            <button id="disconnect" type="button" class="btn btn-primary btn-lg m-2">
+                Disconnect
+            </button>
+
+            <!-- Button to open Control Panel modal -->
+            <button type="button" class="btn btn-primary btn-lg m-2" data-bs-toggle="modal" data-bs-target="#controlpanel">
+                Control Panel
+            </button>
+
+            <!-- Button to open Robot Info modal -->
+            <button type="button" class="btn btn-primary btn-lg m-2" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                Robot info
+            </button>
+
+            <div id="alert_placeholder"></div>
+        </div>
+
+        <!-- Three.js Container -->
+        <div class="threejs-container">
+            <div id="threejs-container"></div>
+        </div>
+
+        <!-- Modal for Control Panel -->
+        <div class="modal fade" id="controlpanel" data-bs-backdrop="false" data-bs-keyboard="false" tabindex="-1"
+            aria-labelledby="staticBackdropLabel" aria-hidden="true">
+            <div class="modal-dialog" style="position: absolute; bottom: 0; left: 0; margin: 0;">
+                <div class="modal-content">
+                    <!-- Modal Header -->
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="staticBackdropLabel">Control Panel</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <!-- Modal Footer with control buttons -->
+                    <div class="modal-footer d-flex align-items-center">
+                        <div class="container-fluid">
+                            <div class="row">
+                                <div class="col-4 text-center">
+                                    <!-- X, Y, Z control buttons -->
+                                    <div class="d-grid">
+                                        <button id="x+" class="btn btn-outline-primary btn-lg m-2">X+</button>
+                                        <button id="x-" class="btn btn-outline-primary btn-lg m-2">X-</button>
+                                        <button id="y+" class="btn btn-outline-primary btn-lg m-2">Y+</button>
+                                        <button id="y-" class="btn btn-outline-primary btn-lg m-2">Y-</button>
+                                        <button id="z+" class="btn btn-outline-primary btn-lg m-2">Z+</button>
+                                        <button id="z-" class="btn btn-outline-primary btn-lg m-2">Z-</button>
+                                    </div>
+                                </div>
+                                <div class="col-4 text-center">
+                                    <!-- RX, RY, RZ control buttons -->
+                                    <div class="d-grid">
+                                        <button id="rx+" class="btn btn-outline-primary btn-lg m-2">RX+</button>
+                                        <button id="rx-" class="btn btn-outline-primary btn-lg m-2">RX-</button>
+                                        <button id="ry+" class="btn btn-outline-primary btn-lg m-2">RY+</button>
+                                        <button id="ry-" class="btn btn-outline-primary btn-lg m-2">RY-</button>
+                                        <button id="rz+" class="btn btn-outline-primary btn-lg m-2">RZ+</button>
+                                        <button id="rz-" class="btn btn-outline-primary btn-lg m-2">RZ-</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <div class="modal-footer d-flex align-items-center">
-                    <div class="container-fluid">
+            </div>
+        </div>
+
+        <!-- Modal for Robot Info -->
+        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <!-- Modal Header -->
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="exampleModalLabel">Joint Position</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <!-- Modal Body with joint positions -->
+                    <div class="modal-body">
                         <div class="row">
-                            <div class="col-4 text-center">
+                            <div class="col-6 text-center">
+                                <!-- Joint labels -->
                                 <div class="d-grid">
-                                    <button id="x+" class="btn btn-outline-primary btn-lg m-2">X+</button>
-                                    <button id="x-" class="btn btn-outline-primary btn-lg m-2">X-</button>
-                                    <button id="y+" class="btn btn-outline-primary btn-lg m-2">Y+</button>
-                                    <button id="y-" class="btn btn-outline-primary btn-lg m-2">Y-</button>
-                                    <button id="z+" class="btn btn-outline-primary btn-lg m-2">Z+</button>
-                                    <button id="z-" class="btn btn-outline-primary btn-lg m-2">Z-</button>
+                                    <div class="badge bg-primary text-wrap m-2" style="width: 6rem; opacity: 0.5;"
+                                        id="j">J0</div>
+                                    <div class="badge bg-primary text-wrap m-2" style="width: 6rem; opacity: 0.5;"
+                                        id="j">J1</div>
+                                    <div class="badge bg-primary text-wrap m-2" style="width: 6rem; opacity: 0.5;"
+                                        id="j">J2</div>
+                                    <div class="badge bg-primary text-wrap m-2" style="width: 6rem; opacity: 0.5;"
+                                        id="j">J3</div>
+                                    <div class="badge bg-primary text-wrap m-2" style="width: 6rem; opacity: 0.5;"
+                                        id="j">J4</div>
+                                    <div class="badge bg-primary text-wrap m-2" style="width: 6rem; opacity: 0.5;"
+                                        id="j">J5</div>
                                 </div>
                             </div>
-                            <div class="col-4 text-center">
+                            <div class="col-6 text-center">
+                                <!-- Joint positions -->
                                 <div class="d-grid">
-                                    <button id="rx+" class="btn btn-outline-primary btn-lg m-2">RX+</button>
-                                    <button id="rx-" class="btn btn-outline-primary btn-lg m-2">RX-</button>
-                                    <button id="ry+" class="btn btn-outline-primary btn-lg m-2">RY+</button>
-                                    <button id="ry-" class="btn btn-outline-primary btn-lg m-2">RY-</button>
-                                    <button id="rz+" class="btn btn-outline-primary btn-lg m-2">RZ+</button>
-                                    <button id="rz-" class="btn btn-outline-primary btn-lg m-2">RZ-</button>
+                                    <div class="badge bg-primary text-wrap m-2" id="j0"></div>
+                                    <div class="badge bg-primary text-wrap m-2" id="j1"></div>
+                                    <div class="badge bg-primary text-wrap m-2" id="j2"></div>
+                                    <div class="badge bg-primary text-wrap m-2" id="j3"></div>
+                                    <div class="badge bg-primary text-wrap m-2" id="j4"></div>
+                                    <div class="badge bg-primary text-wrap m-2" id="j5"></div>
                                 </div>
                             </div>
                         </div>
@@ -56,76 +160,49 @@
                 </div>
             </div>
         </div>
-    </div>
 
-    <!-- Button trigger modal -->
-    <button type="button" class="btn btn-primary btn-lg m-2" data-bs-toggle="modal" data-bs-target="#exampleModal">
-        Robot info
-    </button>
-    
-    <!-- Modal -->
-    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="exampleModalLabel">Joint Position</h1>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <div class="row">
-                        <div class="col-6 text-center">
-                            <div class="d-grid">
-                                <div class="badge bg-primary text-wrap m-2" style="width: 6rem; opacity: 0.5;" id="j">J0</div>
-                                <div class="badge bg-primary text-wrap m-2" style="width: 6rem; opacity: 0.5;" id="j">J1</div>
-                                <div class="badge bg-primary text-wrap m-2" style="width: 6rem; opacity: 0.5;" id="j">J2</div>
-                                <div class="badge bg-primary text-wrap m-2" style="width: 6rem; opacity: 0.5;" id="j">J3</div>
-                                <div class="badge bg-primary text-wrap m-2" style="width: 6rem; opacity: 0.5;" id="j">J4</div>
-                                <div class="badge bg-primary text-wrap m-2" style="width: 6rem; opacity: 0.5;" id="j">J5</div>
+        <!-- Modal for Connect -->
+        <div class="modal fade" id="exampleModal2" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <!-- Connect modal title -->
+                        <h1 class="modal-title fs-5" id="exampleModalLabel">Connect to robot</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <!-- Connect form with IP address input -->
+                        <form id="connectForm">
+                            <div class="mb-3">
+                                <label for="recipient-name" class="col-form-label">IP address</label>
+                                <input type="text" class="form-control" id="recipient-name"
+                                    onkeypress="return ipValidator(event)">
                             </div>
-                        </div>
-                        <div class="col-6 text-center">
-                            <div class="d-grid">
-                                <div class="badge bg-primary text-wrap m-2" id="j0"></div>
-                                <div class="badge bg-primary text-wrap m-2" id="j1"></div>
-                                <div class="badge bg-primary text-wrap m-2" id="j2"></div>
-                                <div class="badge bg-primary text-wrap m-2" id="j3"></div>
-                                <div class="badge bg-primary text-wrap m-2" id="j4"></div>
-                                <div class="badge bg-primary text-wrap m-2" id="j5"></div>
-                            </div>
-                        </div>
+                        </form>
+
+                        <!-- Script for IP address validation -->
+                        <script>
+                            function ipValidator(evt) {
+                                var charCode = (evt.which) ? evt.which : event.keyCode;
+                                if (charCode != 46 && charCode > 31 && (charCode < 48 || charCode > 57))
+                                    return false;
+                                return true;
+                            }
+                        </script>
+                    </div>
+                    <div class="modal-footer">
+                        <!-- Close and Connect buttons -->
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button id="connectButton" type="button" class="btn btn-primary">Connect</button>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
 
-    <div class="modal fade" id="exampleModal2" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-            <div class="modal-header">
-                <h1 class="modal-title fs-5" id="exampleModalLabel">Connect to robot</h1>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <form id="connectForm">
-                    <div class="mb-3">
-                        <label for="recipient-name" class="col-form-label">IP adress</label>
-                        <input type="text" class="form-control" id="recipient-name">
-                    </div>
-                </form>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                <button id="connectButton" type="button" class="btn btn-primary">Connect</button>
-            </div>
-            </div>
-        </div>
-    </div>
+        <!-- Script files for Three.js and project functionality -->
+        <script type="module" src="t_connection.js"></script>
+        <script type="module" src="t_control.js"></script>
+        <script type="module" src="t_visualize.js"></script>
 
-    <div id="alert_placeholder"></div>
-
-    <script type="module" src="script.js"></script>
-    <script type="module" src="control.js"></script>
-   
-</body>
+    </body>
 </html>
