@@ -38,8 +38,6 @@ Data from the client side is sent via **SSE (Server Sent Events)** to the Flask 
 
 The whole application is based on a containerized application. **Docker Compose** was used, where containers for visualization and communication with the robot are solved. in the container itself also the unpacking of the whole scene for visualization is solved. In the unzip container, the package is loaded and then decompressed with the volumes linked for access from the visualization container to the client.
 
-![concept](/docs/concept.png)
-
 ```bash
 $ docker compose up --build
 ```
